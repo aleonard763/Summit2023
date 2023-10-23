@@ -1,0 +1,9 @@
+{
+	"name": "dfSummit2023",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "685ecb3b-d4d9-41ce-9089-c00ce24678ae",
+		"tenantId": "75f46c28-958a-438e-bfc5-c9c5e2bc194f"
+	}
+}
