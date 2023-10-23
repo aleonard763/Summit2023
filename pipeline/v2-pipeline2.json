@@ -1,0 +1,20 @@
+{
+	"name": "v2-pipeline2",
+	"properties": {
+		"activities": [
+			{
+				"name": "Wait1",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 1
+				}
+			}
+		],
+		"folder": {
+			"name": "v2/2"
+		},
+		"annotations": []
+	}
+}

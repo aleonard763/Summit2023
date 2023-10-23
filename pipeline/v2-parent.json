@@ -1,0 +1,9 @@
+{
+	"name": "v2-parent",
+	"properties": {
+		"folder": {
+			"name": "v2"
+		},
+		"annotations": []
+	}
+}
