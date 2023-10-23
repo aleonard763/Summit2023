@@ -1,5 +1,13 @@
 {
 	"name": "dfSummit2023",
+	"properties": {
+		"globalParameters": {
+			"subscrId": {
+				"type": "string",
+				"value": "ef3a1634-d332-458d-9cae-bcf71c2d1682"
+			}
+		}
+	},
 	"location": "eastus2",
 	"identity": {
 		"type": "SystemAssigned",
