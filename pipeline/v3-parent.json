@@ -1,5 +1,5 @@
 {
-	"name": "v2-parent",
+	"name": "v3-parent",
 	"properties": {
 		"activities": [
 			{
@@ -29,7 +29,7 @@
 			}
 		},
 		"folder": {
-			"name": "v2"
+			"name": "v3"
 		},
 		"annotations": []
 	}
