@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "pipeline1",
+						"referenceName": "v0-pipeline1",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
