@@ -16,6 +16,9 @@
 				}
 			}
 		],
+		"folder": {
+			"name": "v0"
+		},
 		"annotations": [],
 		"lastPublishTime": "2023-10-23T17:02:20Z"
 	},
