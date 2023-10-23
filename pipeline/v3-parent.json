@@ -18,6 +18,14 @@
 					"url": {
 						"value": "@concat('https://management.azure.com/subscriptions/',pipeline().globalParameters.subscrId,'/resourceGroups/',pipeline().globalParameters.rg,'/providers/Microsoft.DataFactory/factories/',pipeline().DataFactory,'/pipelines/',variables('pipelineName'),'/createRun?api-version=2018-06-01')",
 						"type": "Expression"
+					},
+					"method": "POST",
+					"body": {
+						"message": "Executing pipeline"
+					},
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.azure.com"
 					}
 				}
 			}
