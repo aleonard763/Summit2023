@@ -1,5 +1,5 @@
 {
-	"name": "parent-v0",
+	"name": "parent-v1",
 	"properties": {
 		"activities": [
 			{
@@ -17,7 +17,7 @@
 			}
 		],
 		"folder": {
-			"name": "v0"
+			"name": "v1"
 		},
 		"annotations": [],
 		"lastPublishTime": "2023-10-23T17:02:20Z"
