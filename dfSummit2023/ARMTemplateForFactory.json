@@ -296,7 +296,7 @@
 				"variables": {
 					"pipelineName": {
 						"type": "String",
-						"defaultValue": "pipeline1"
+						"defaultValue": "v1-pipeline1"
 					}
 				},
 				"folder": {
