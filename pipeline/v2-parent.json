@@ -1,0 +1,36 @@
+{
+	"name": "v2-parent",
+	"properties": {
+		"activities": [
+			{
+				"name": "Rest API Execute Pipeline",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": {
+						"value": "@concat('https://management.azure.com/subscriptions/',pipeline().globalParameters.subscrId,'/resourceGroups/',pipeline().globalParameters.rg,'/providers/Microsoft.DataFactory/factories/',pipeline().DataFactory,'/pipelines/',variables('pipelineName'),'/createRun?api-version=2018-06-01')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"pipelineName": {
+				"type": "String",
+				"defaultValue": "pipeline1"
+			}
+		},
+		"folder": {
+			"name": "v2"
+		},
+		"annotations": []
+	}
+}
