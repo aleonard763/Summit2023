@@ -5,6 +5,10 @@
 			"subscrId": {
 				"type": "string",
 				"value": "ef3a1634-d332-458d-9cae-bcf71c2d1682"
+			},
+			"rg": {
+				"type": "string",
+				"value": "rgSummit2023"
 			}
 		}
 	},
