@@ -1,5 +1,5 @@
 {
-	"name": "v0-parent",
+	"name": "v1-controller",
 	"properties": {
 		"activities": [
 			{
@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "v0-pipeline1",
+						"referenceName": "v1-pipeline1",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
@@ -18,18 +18,11 @@
 			{
 				"name": "Execute Pipeline2",
 				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "Execute Pipeline1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "v0-pipeline2",
+						"referenceName": "v1-pipeline2",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
@@ -37,10 +30,8 @@
 			}
 		],
 		"folder": {
-			"name": "v0"
+			"name": "v1"
 		},
-		"annotations": [],
-		"lastPublishTime": "2023-10-23T17:02:20Z"
-	},
-	"type": "Microsoft.DataFactory/factories/pipelines"
+		"annotations": []
+	}
 }

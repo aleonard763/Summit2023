@@ -3,13 +3,13 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Execute Pipeline1",
+				"name": "Execute Controller",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "v1-pipeline1",
+						"referenceName": "v1-controller",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
