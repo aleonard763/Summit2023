@@ -101,7 +101,7 @@
 		"parameters": {
 			"applicationName": {
 				"type": "string",
-				"defaultValue": "Application"
+				"defaultValue": "Application One"
 			}
 		},
 		"variables": {
