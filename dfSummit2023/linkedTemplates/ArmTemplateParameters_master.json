@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "dfSummit2023"
 		},
+		"ls_metadata_asql_connectionString": {
+			"value": ""
+		},
 		"containerUri": {
 			"value": ""
 		},

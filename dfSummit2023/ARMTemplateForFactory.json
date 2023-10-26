@@ -6,6 +6,10 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "dfSummit2023"
+		},
+		"ls_metadata_asql_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_metadata_asql'"
 		}
 	},
 	"variables": {
@@ -315,7 +319,14 @@
 					{
 						"name": "Rest API Execute Pipeline",
 						"type": "WebActivity",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "Set pipelineName",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "0.12:00:00",
 							"retry": 0,
@@ -339,10 +350,77 @@
 								"resource": "https://management.azure.com"
 							}
 						}
+					},
+					{
+						"name": "Get ApplicationPipelines",
+						"type": "Script",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"linkedServiceName": {
+							"referenceName": "ls_metadata_asql",
+							"type": "LinkedServiceReference"
+						},
+						"typeProperties": {
+							"scripts": [
+								{
+									"parameters": [
+										{
+											"name": "ApplicationName",
+											"type": "String",
+											"value": {
+												"value": "@pipeline().parameters.applicationName",
+												"type": "Expression"
+											},
+											"direction": "Input"
+										}
+									],
+									"type": "Query",
+									"text": "dffw.getApplicationPipelines @ApplicationName"
+								}
+							],
+							"scriptBlockExecutionTimeout": "02:00:00"
+						}
+					},
+					{
+						"name": "Set pipelineName",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "Get ApplicationPipelines",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "pipelineName",
+							"value": {
+								"value": "@activity('Get ApplicationPipelines').output.resultsets[0].rows[0].pipelineName",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"applicationName": {
+						"type": "string",
+						"defaultValue": "Application One"
+					}
 				},
 				"variables": {
 					"pipelineName": {
@@ -355,7 +433,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_metadata_asql')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/v3-pipeline1')]",
@@ -406,6 +486,19 @@
 					"name": "v3/2"
 				},
 				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_metadata_asql')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_metadata_asql_connectionString')]"
+				}
 			},
 			"dependsOn": []
 		}
