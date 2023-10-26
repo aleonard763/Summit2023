@@ -66,8 +66,8 @@
 									"direction": "Input"
 								}
 							],
-							"type": "NonQuery",
-							"text": "dffw.getApplicationPipelines"
+							"type": "Query",
+							"text": "dffw.getApplicationPipelines @ApplicationName"
 						}
 					],
 					"scriptBlockExecutionTimeout": "02:00:00"
@@ -92,7 +92,7 @@
 				"typeProperties": {
 					"variableName": "pipelineName",
 					"value": {
-						"value": "@activity('Get ApplicationPipelines').output.tihing",
+						"value": "@activity('Get ApplicationPipelines').output.resultsets[0].rows[0].pipelineName",
 						"type": "Expression"
 					}
 				}
