@@ -490,6 +490,124 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/v4-parent')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Get ApplicationPipelines",
+						"type": "Script",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"linkedServiceName": {
+							"referenceName": "ls_metadata_asql",
+							"type": "LinkedServiceReference"
+						},
+						"typeProperties": {
+							"scripts": [
+								{
+									"parameters": [
+										{
+											"name": "ApplicationName",
+											"type": "String",
+											"value": {
+												"value": "@pipeline().parameters.applicationName",
+												"type": "Expression"
+											},
+											"direction": "Input"
+										}
+									],
+									"type": "Query",
+									"text": "dffw.getApplicationPipelines @ApplicationName"
+								}
+							],
+							"scriptBlockExecutionTimeout": "02:00:00"
+						}
+					},
+					{
+						"name": "ForEach ApplicationPipeline",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Get ApplicationPipelines",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Get ApplicationPipelines').output.resultsets[0].rows",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Rest API Execute Pipeline",
+									"type": "WebActivity",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"url": {
+											"value": "@concat('https://management.azure.com/subscriptions/',pipeline().globalParameters.subscrId,'/resourceGroups/',pipeline().globalParameters.rg,'/providers/Microsoft.DataFactory/factories/',pipeline().DataFactory,'/pipelines/',item().pipelineName,'/createRun?api-version=2018-06-01')",
+											"type": "Expression"
+										},
+										"method": "POST",
+										"headers": {},
+										"body": {
+											"message": "Executing pipeline"
+										},
+										"authentication": {
+											"type": "MSI",
+											"resource": "https://management.azure.com"
+										}
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"applicationName": {
+						"type": "string",
+						"defaultValue": "Application One"
+					}
+				},
+				"variables": {
+					"pipelineName": {
+						"type": "String",
+						"defaultValue": "pipeline1"
+					}
+				},
+				"folder": {
+					"name": "v4"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_metadata_asql')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ls_metadata_asql')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
