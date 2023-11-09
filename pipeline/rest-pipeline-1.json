@@ -21,8 +21,7 @@
 					},
 					"method": "POST",
 					"body": {
-						"value": "@concat('{\\\"message\\\":\\\"Executing pipeline: ',pipeline().parameters.pipelineName,'\\\"}')",
-						"type": "Expression"
+						"message": ""
 					},
 					"authentication": {
 						"type": "MSI",
