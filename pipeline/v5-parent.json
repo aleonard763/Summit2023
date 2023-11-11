@@ -63,7 +63,7 @@
 							"type": "WebActivity",
 							"dependsOn": [
 								{
-									"activity": "Get ApplicationPipelineParameterCount",
+									"activity": "If Parameter Count grt 0",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -84,7 +84,8 @@
 								},
 								"method": "POST",
 								"body": {
-									"waitSeconds": 42
+									"value": "@variables('parametersJSON')",
+									"type": "Expression"
 								},
 								"authentication": {
 									"type": "MSI",
@@ -137,6 +138,113 @@
 								],
 								"scriptBlockExecutionTimeout": "02:00:00"
 							}
+						},
+						{
+							"name": "If Parameter Count grt 0",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "Get ApplicationPipelineParameterCount",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@greater(activity('Get ApplicationPipelineParameterCount').output.resultsets[0].rows[0].ApplicationPipelineParameterCount, 0)",
+									"type": "Expression"
+								},
+								"ifFalseActivities": [
+									{
+										"name": "Set parametersJSON",
+										"type": "SetVariable",
+										"dependsOn": [],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "parametersJSON",
+											"value": ""
+										}
+									}
+								],
+								"ifTrueActivities": [
+									{
+										"name": "Get ApplicationPipelineParameters",
+										"type": "Script",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"linkedServiceName": {
+											"referenceName": "ls_metadata_asql",
+											"type": "LinkedServiceReference"
+										},
+										"typeProperties": {
+											"scripts": [
+												{
+													"parameters": [
+														{
+															"name": "ApplicationName",
+															"type": "String",
+															"value": {
+																"value": "@pipeline().parameters.applicationName",
+																"type": "Expression"
+															},
+															"direction": "Input"
+														},
+														{
+															"name": "PipelineName",
+															"type": "String",
+															"value": {
+																"value": "@item().PipelineName",
+																"type": "Expression"
+															},
+															"direction": "Input"
+														}
+													],
+													"type": "Query",
+													"text": "dffw.getApplicationPipelineParameters @ApplicationName, @PipelineName"
+												}
+											],
+											"scriptBlockExecutionTimeout": "02:00:00"
+										}
+									},
+									{
+										"name": "Set parametersJSON variable",
+										"type": "SetVariable",
+										"dependsOn": [
+											{
+												"activity": "Get ApplicationPipelineParameters",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "parametersJSON",
+											"value": {
+												"value": "@concat('{', activity('Get ApplicationPipelineParameters').output,'}')",
+												"type": "Expression"
+											}
+										}
+									}
+								]
+							}
 						}
 					]
 				}
@@ -152,6 +260,9 @@
 			"pipelineName": {
 				"type": "String",
 				"defaultValue": "pipeline1"
+			},
+			"parametersJSON": {
+				"type": "String"
 			}
 		},
 		"folder": {
