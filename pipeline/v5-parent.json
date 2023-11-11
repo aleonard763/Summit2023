@@ -168,7 +168,10 @@
 										"userProperties": [],
 										"typeProperties": {
 											"variableName": "parametersJSON",
-											"value": ""
+											"value": {
+												"value": "@concat('')",
+												"type": "Expression"
+											}
 										}
 									}
 								],
