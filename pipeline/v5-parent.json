@@ -61,7 +61,14 @@
 						{
 							"name": "Rest API Execute Pipeline",
 							"type": "WebActivity",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "Get ApplicationPipelineParameterCount",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"policy": {
 								"timeout": "0.12:00:00",
 								"retry": 0,
@@ -83,6 +90,52 @@
 									"type": "MSI",
 									"resource": "https://management.azure.com"
 								}
+							}
+						},
+						{
+							"name": "Get ApplicationPipelineParameterCount",
+							"type": "Script",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"linkedServiceName": {
+								"referenceName": "ls_metadata_asql",
+								"type": "LinkedServiceReference"
+							},
+							"typeProperties": {
+								"scripts": [
+									{
+										"parameters": [
+											{
+												"name": "ApplicationName",
+												"type": "String",
+												"value": {
+													"value": "@pipeline().parameters.applicationName",
+													"type": "Expression"
+												},
+												"direction": "Input"
+											},
+											{
+												"name": "PipelineName",
+												"type": "String",
+												"value": {
+													"value": "@item().PipelineName",
+													"type": "Expression"
+												},
+												"direction": "Input"
+											}
+										],
+										"type": "Query",
+										"text": "dffw.getApplicationPipelineParameterCount @ApplicationName, @PipelineName"
+									}
+								],
+								"scriptBlockExecutionTimeout": "02:00:00"
 							}
 						}
 					]
