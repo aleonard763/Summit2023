@@ -1,5 +1,5 @@
 {
-	"name": "v4-pipeline1",
+	"name": "v5-pipeline1",
 	"properties": {
 		"activities": [
 			{
@@ -22,7 +22,7 @@
 			}
 		},
 		"folder": {
-			"name": "v4/1"
+			"name": "v5/1"
 		},
 		"annotations": []
 	}
