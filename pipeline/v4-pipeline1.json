@@ -1,0 +1,29 @@
+{
+	"name": "v4-pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Wait n Seconds",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@pipeline().parameters.waitSeconds",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"waitSeconds": {
+				"type": "int",
+				"defaultValue": 30
+			}
+		},
+		"folder": {
+			"name": "v4/1"
+		},
+		"annotations": []
+	}
+}
