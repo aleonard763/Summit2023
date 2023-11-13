@@ -65,7 +65,7 @@
 								{
 									"activity": "If Parameter Count grt 0",
 									"dependencyConditions": [
-										"Succeeded"
+										"Completed"
 									]
 								}
 							],
