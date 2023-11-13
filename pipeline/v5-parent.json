@@ -84,7 +84,7 @@
 								},
 								"method": "POST",
 								"body": {
-									"value": "{\"waitSeconds\":\"2\"}",
+									"value": "@concat('{',activity('Get ApplicationPipelineParameters').output.resultsets[0].rows[0].parameterJSON,'}')",
 									"type": "Expression"
 								},
 								"authentication": {
@@ -169,7 +169,7 @@
 										"typeProperties": {
 											"variableName": "parametersJSON",
 											"value": {
-												"value": "@concat('\"message\":\"Executing \"',variables('pipelineName'))",
+												"value": "@json('\"message\":\"executing\"')",
 												"type": "Expression"
 											}
 										}
@@ -241,7 +241,7 @@
 										"typeProperties": {
 											"variableName": "parametersJSON",
 											"value": {
-												"value": "@string(activity('Get ApplicationPipelineParameters').output)",
+												"value": "@activity('Get ApplicationPipelineParameters').output.resultsets[0].rows[0].parameterJSON",
 												"type": "Expression"
 											}
 										}
