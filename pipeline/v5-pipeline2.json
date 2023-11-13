@@ -1,0 +1,45 @@
+{
+	"name": "v5-pipeline2",
+	"properties": {
+		"activities": [
+			{
+				"name": "Wait n Seconds",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@pipeline().parameters.waitSeconds",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Wait n Seconds 2",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@pipeline().parameters.waitSeconds2",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"waitSeconds": {
+				"type": "int",
+				"defaultValue": 30
+			},
+			"waitSeconds2": {
+				"type": "int",
+				"defaultValue": 31
+			}
+		},
+		"folder": {
+			"name": "v5/1"
+		},
+		"annotations": []
+	}
+}
