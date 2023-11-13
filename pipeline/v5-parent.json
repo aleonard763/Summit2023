@@ -84,7 +84,8 @@
 								},
 								"method": "POST",
 								"body": {
-									"waitSeconds": 5
+									"value": "{\"waitSeconds\":\"2\"}",
+									"type": "Expression"
 								},
 								"authentication": {
 									"type": "MSI",
@@ -240,7 +241,7 @@
 										"typeProperties": {
 											"variableName": "parametersJSON",
 											"value": {
-												"value": "@concat('{', activity('Get ApplicationPipelineParameters').output,'}')",
+												"value": "@string(activity('Get ApplicationPipelineParameters').output)",
 												"type": "Expression"
 											}
 										}
