@@ -17,6 +17,51 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/child5')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Rest API Execute Pipeline",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat('https://management.azure.com/subscriptions/',pipeline().globalParameters.subscrId,'/resourceGroups/',pipeline().globalParameters.rg,'/providers/Microsoft.DataFactory/factories/',pipeline().DataFactory,'/pipelines/v5-pipeline1/createRun?api-version=2018-06-01')",
+								"type": "Expression"
+							},
+							"method": "POST",
+							"headers": {},
+							"body": {
+								"message": "executing"
+							},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://management.azure.com"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "v5"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/rest-pipeline-1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -727,7 +772,7 @@
 										{
 											"activity": "If Parameter Count grt 0",
 											"dependencyConditions": [
-												"Succeeded"
+												"Completed"
 											]
 										}
 									],
@@ -747,7 +792,8 @@
 										"method": "POST",
 										"headers": {},
 										"body": {
-											"waitSeconds": 5
+											"value": "@concat('{',activity('Get ApplicationPipelineParameters').output.resultsets[0].rows[0].parameterJSON,'}')",
+											"type": "Expression"
 										},
 										"authentication": {
 											"type": "MSI",
@@ -831,7 +877,7 @@
 												"typeProperties": {
 													"variableName": "parametersJSON",
 													"value": {
-														"value": "@concat('\"message\":\"Executing \"',variables('pipelineName'))",
+														"value": "@json('\"message\":\"executing\"')",
 														"type": "Expression"
 													}
 												}
@@ -903,7 +949,7 @@
 												"typeProperties": {
 													"variableName": "parametersJSON",
 													"value": {
-														"value": "@concat('{', activity('Get ApplicationPipelineParameters').output,'}')",
+														"value": "@activity('Get ApplicationPipelineParameters').output.resultsets[0].rows[0].parameterJSON",
 														"type": "Expression"
 													}
 												}
