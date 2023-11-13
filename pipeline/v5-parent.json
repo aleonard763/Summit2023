@@ -84,8 +84,7 @@
 								},
 								"method": "POST",
 								"body": {
-									"value": "@variables('parametersJSON')",
-									"type": "Expression"
+									"waitSeconds": 5
 								},
 								"authentication": {
 									"type": "MSI",
@@ -169,7 +168,7 @@
 										"typeProperties": {
 											"variableName": "parametersJSON",
 											"value": {
-												"value": "@concat('')",
+												"value": "@concat('\"message\":\"Executing \"',variables('pipelineName'))",
 												"type": "Expression"
 											}
 										}
