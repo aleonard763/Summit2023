@@ -1,6 +1,39 @@
 {
 	"name": "p2-tester",
 	"properties": {
+		"activities": [
+			{
+				"name": "Rest API Execute Pipeline",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": {
+						"value": "@concat('https://management.azure.com/subscriptions/',pipeline().globalParameters.subscrId,'/resourceGroups/',pipeline().globalParameters.rg,'/providers/Microsoft.DataFactory/factories/',pipeline().DataFactory,'/pipelines/',pipeline().parameters.pipelineName,'/createRun?api-version=2018-06-01')",
+						"type": "Expression"
+					},
+					"method": "POST",
+					"body": "{waitSeconds:4,waitSeconds2:7}",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.azure.com"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"pipelineName": {
+				"type": "string",
+				"defaultValue": "v5-pipeline2"
+			}
+		},
 		"folder": {
 			"name": "v5"
 		},
