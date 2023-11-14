@@ -30,11 +30,11 @@
 		"parameters": {
 			"waitSeconds": {
 				"type": "int",
-				"defaultValue": 30
+				"defaultValue": 4
 			},
 			"waitSeconds2": {
 				"type": "int",
-				"defaultValue": 31
+				"defaultValue": 3
 			}
 		},
 		"folder": {
