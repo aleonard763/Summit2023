@@ -979,19 +979,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ls_metadata_asql')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('ls_metadata_asql_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/v5-pipeline2')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1028,17 +1015,30 @@
 				"parameters": {
 					"waitSeconds": {
 						"type": "int",
-						"defaultValue": 30
+						"defaultValue": 4
 					},
 					"waitSeconds2": {
 						"type": "int",
-						"defaultValue": 31
+						"defaultValue": 3
 					}
 				},
 				"folder": {
 					"name": "v5/1"
 				},
 				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_metadata_asql')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_metadata_asql_connectionString')]"
+				}
 			},
 			"dependsOn": []
 		}
