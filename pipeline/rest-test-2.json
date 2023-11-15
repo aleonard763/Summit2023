@@ -35,6 +35,9 @@
 			"waitSeconds2": {
 				"type": "int",
 				"defaultValue": 3
+			},
+			"string test": {
+				"type": "string"
 			}
 		},
 		"folder": {
