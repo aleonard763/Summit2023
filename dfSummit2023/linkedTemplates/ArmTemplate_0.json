@@ -68,6 +68,83 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/rest-test-2')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Wait n Seconds",
+						"type": "Wait",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"waitTimeInSeconds": {
+								"value": "@pipeline().parameters.waitSeconds",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Wait n Seconds 2",
+						"type": "Wait",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"waitTimeInSeconds": {
+								"value": "@pipeline().parameters.waitSeconds2",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Set target-variable",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"policy": {
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "target-variable",
+							"value": {
+								"value": "@pipeline().parameters.stringtest",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"waitSeconds": {
+						"type": "int",
+						"defaultValue": 4
+					},
+					"waitSeconds2": {
+						"type": "int",
+						"defaultValue": 3
+					},
+					"stringtest": {
+						"type": "string"
+					}
+				},
+				"variables": {
+					"target-variable": {
+						"type": "String",
+						"defaultValue": "default value"
+					}
+				},
+				"folder": {
+					"name": "rest"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/v0-pipeline1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
