@@ -25,6 +25,23 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "Set target-variable",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "target-variable",
+					"value": {
+						"value": "@pipeline().parameters.stringtest",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -36,8 +53,14 @@
 				"type": "int",
 				"defaultValue": 3
 			},
-			"string test": {
+			"stringtest": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"target-variable": {
+				"type": "String",
+				"defaultValue": "default value"
 			}
 		},
 		"folder": {
