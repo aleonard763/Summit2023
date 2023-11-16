@@ -377,7 +377,7 @@
 				"parameters": {
 					"waitSeconds": {
 						"type": "int",
-						"defaultValue": 30
+						"defaultValue": 33
 					}
 				},
 				"folder": {
