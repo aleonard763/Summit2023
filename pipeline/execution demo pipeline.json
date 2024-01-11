@@ -1,0 +1,9 @@
+{
+	"name": "execution demo pipeline",
+	"properties": {
+		"folder": {
+			"name": "_execution"
+		},
+		"annotations": []
+	}
+}
