@@ -317,3 +317,5 @@ go
 
 print ' - dffw.getApplicationPipelines stored procedure created'
 print ''
+
+-- (c) Copyright 2021, Enterprise Data & Analytics
