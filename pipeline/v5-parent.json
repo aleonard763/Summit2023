@@ -271,6 +271,8 @@
 		"folder": {
 			"name": "v5"
 		},
-		"annotations": []
+		"annotations": [
+			            "(c) Copyright 2021, Enterprise Data & Analytics"
+		]
 	}
 }
