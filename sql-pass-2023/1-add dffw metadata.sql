@@ -223,3 +223,5 @@ set @ApplicationPipelineId = (select ApplicationPipelineId From @tblAp)
 select @ApplicationPipelineId As ApplicationPipelineId
 
 exec dffw.getApplicationPipelines @ApplicationName = @ApplicationName
+
+-- (c) Copyright 2021, Enterprise Data & Analytics
