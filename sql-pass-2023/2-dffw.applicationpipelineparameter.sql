@@ -416,3 +416,4 @@ Select *
 From dffw.applicationpipelineparameter
 go
 
+ -- (c) Copyright 2021, Enterprise Data & Analytics
