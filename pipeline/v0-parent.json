@@ -39,7 +39,9 @@
 		"folder": {
 			"name": "v0"
 		},
-		"annotations": [],
+		"annotations": [
+			"(c) Copyright 2021 Enterprise Data & Analytics"
+		],
 		"lastPublishTime": "2023-10-23T17:02:20Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
