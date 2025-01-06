@@ -62,3 +62,4 @@ exec dffw.getApplicationPipelineParameters @ApplicationName = @ApplicationName
 /*Select *
 From dffw.applicationpipelineparameter
 */
+ -- (c) Copyright 2021, Enterprise Data & Analytics
